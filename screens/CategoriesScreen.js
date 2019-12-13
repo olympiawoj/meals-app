@@ -6,9 +6,8 @@ import Colors from "../constants/Colors"
 
 const CategoriesScreen = props => {
 
-
     const renderGridItem = itemData => {
-        console.log(itemData)
+        // console.log(itemData)
         return (
             <TouchableOpacity
                 style={styles.gridItem}
