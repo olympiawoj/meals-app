@@ -3,10 +3,15 @@ import { View, Text, StyleSheet, Button } from "react-native"
 
 const CategoryMealsScreen = props => {
     return (
-        <View style={styles.screen}><Text>The Category Meal Screen</Text>
-            <Button title="Go to MealDetails Screen!" onPress={() => {
+        <View style={styles.screen}><Text>The Category Meals Screen</Text>
+            <Button title="Go to MealDetails Screen" onPress={() => {
                 props.navigation.navigate({ routeName: "MealDetail" })
-            }} /></View>
+            }} />
+
+            <Button title="Go Back" onPress={() => {
+                props.navigation.goBack()
+            }} />
+        </View>
     )
 }
 
