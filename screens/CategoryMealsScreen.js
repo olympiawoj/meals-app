@@ -8,7 +8,14 @@ const CategoryMealsScreen = props => {
     const renderMealItem = itemData => {
         return (
             <MealItem
-                affordability={itemData.item.affordability} complexity={itemData.item.complexity} duration={itemData.item.duration} image={itemData.item.imageURL} title={itemData.item.title} onSelectMeal={() => { }} />
+                affordability={itemData.item.affordability} complexity={itemData.item.complexity} duration={itemData.item.duration} image={itemData.item.imageURL} title={itemData.item.title} onSelectMeal={() => {
+                    props.navigation.navigate({
+                        routeName: "MealDetail",
+                        params: {
+                            mealId: itemData.item.id
+                        }
+                    })
+                }} />
         )
     }
 
