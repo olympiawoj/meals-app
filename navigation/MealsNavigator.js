@@ -1,5 +1,5 @@
 import React from "react"
-import { Platform } from "react-native"
+import { Platform, Text } from "react-native"
 
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from "react-navigation-stack"
@@ -19,6 +19,12 @@ import Colors from "../constants/Colors"
 const defaultStackNavOptions = {
     headerStyle: {
         backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
+    },
+    headerTitleStyle: {
+        fontFamily: "open-sans-bold"
+    },
+    headerBackTitleStyle: {
+        fontFamily: "open-sans"
     },
     headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
     headerTitle: "A Screen"
@@ -57,7 +63,8 @@ const tabScreenConfig = {
             tabBarIcon: (tabInfo) => {
                 return <Ionicons name='ios-restaurant' size={25} color={tabInfo.tintColor} />
             },
-            tabBarColor: Colors.primaryColor
+            tabBarColor: Colors.primaryColor,
+            tabBarLabel: Platform.OS === "android" ? <Text style={{ fontFamily: "open-sans-bold" }}>Meals!!!</Text> : "Meals"
         }
     },
     Favorites: {
@@ -67,7 +74,8 @@ const tabScreenConfig = {
             tabBarIcon: (tabInfo) => {
                 return <Ionicons name='ios-star' size={25} color={tabInfo.tintColor} />
             },
-            tabBarColor: Colors.accentColor
+            tabBarColor: Colors.accentColor,
+            tabBarLabel: Platform.OS === "android" ? <Text style={{ fontFamily: "open-sans-bold" }}>Favorites!!!</Text> : "Favorites"
         }
     }
 }
@@ -77,14 +85,18 @@ const MealFavTabNavigator = Platform.OS === "android" ?
         activeColor: "white",
         shifting: true,
         // shifting: false,
-        // barStyle: {
-        //     backgroundColor: Colors.primaryColor
-        // }
+        barStyle: {
+            backgroundColor: Colors.primaryColor
+        }
     })
     : createBottomTabNavigator(tabScreenConfig, {
         tabBarOptions: {
-            activeTintColor: "white"
-        }
+            activeTintColor: "white",
+            labelstyle: {
+                fontFamily: "open-sans-bold"
+            }
+        },
+        activeTintColor: Colors.accentColor
     })
 
 
