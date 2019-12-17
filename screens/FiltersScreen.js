@@ -41,7 +41,7 @@ const FiltersScreen = props => {
 
     return (
         <View style={styles.screen}>
-            <Text style={styles.title}>Available Filters/Resitrictions</Text>
+            <Text style={styles.title}>Available Filters/Restrictions</Text>
             <FilterSwitch label="Gluten-free" state={isGlutenFree} onChange={(newValue) => setIsGlutenFree(newValue)} />
 
             <FilterSwitch label="Lactose-free" state={isLactoseFree} onChange={(newValue) => setisLactoseFree(newValue)} />
