@@ -85,9 +85,9 @@ const MealFavTabNavigator = Platform.OS === "android" ?
         activeColor: "white",
         shifting: true,
         // shifting: false,
-        barStyle: {
-            backgroundColor: Colors.primaryColor
-        }
+        // barStyle: {
+        //     backgroundColor: Colors.primaryColor
+        // }
     })
     : createBottomTabNavigator(tabScreenConfig, {
         tabBarOptions: {
