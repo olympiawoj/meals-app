@@ -24,9 +24,9 @@ const MealDetailScreen = props => {
 
 
     //merged with existing params, won't override mealId
-    useEffect(() => {
-        props.navigation.setParams({ mealTitle: selectedMeal.title })
-    }, [])
+    // useEffect(() => {
+    //     props.navigation.setParams({ mealTitle: selectedMeal.title })
+    // }, [selectedMeal])
 
     return (
         <ScrollView>
