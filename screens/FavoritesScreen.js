@@ -1,4 +1,4 @@
-import React, { useSelector } from "react"
+import React from "react"
 import { View, Text, StyleSheet } from "react-native"
 import MealList from "../components/MealList"
 import { HeaderButtons, Item } from "react-navigation-header-buttons"
@@ -9,7 +9,6 @@ const FavoritesScreen = props => {
 
 
     //state.meals select slice of state and then in this slice of state, this meals accesses meals property in initialState
-    const availableMeals = useSelector(state => state.meals.meals)
 
     const favMeals = useSelector(state => state.meals.favoriteMeals)
 
