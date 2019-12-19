@@ -4,10 +4,17 @@ import * as Font from "expo-font"
 import { AppLoading } from "expo"
 
 import MealsNavigator from "./navigation/MealsNavigator"
-
-
+import mealsReducer from "./store/reducers/meals"
+import { Provider } from "react-redux"
+import { createStore, combineReducers } from "redux"
 import { enableScreens } from "react-native-screens"
 enableScreens()
+
+const rootReducer = combineReducers({
+  meals: mealsReducer
+})
+
+const store = createStore(rootReducer)
 
 
 export default function App() {
@@ -26,7 +33,7 @@ export default function App() {
       onFinish={() => setFontLoaded(true)}
     />
   }
-  return <MealsNavigator />
+  return <Provider store={store}><MealsNavigator /></Provider>
 }
 
 const styles = StyleSheet.create({

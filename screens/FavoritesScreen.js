@@ -1,17 +1,32 @@
 import React from "react"
 import { View, Text, StyleSheet } from "react-native"
 import MealList from "../components/MealList"
-import { MEALS } from "../data/dummy-data"
 import { HeaderButtons, Item } from "react-navigation-header-buttons"
 import HeaderButton from "../components/HeaderButton"
+import { useSelector } from "react-redux"
+import DefaultText from "../components/DefaultText"
 
 const FavoritesScreen = props => {
 
-    const favMeals = MEALS.filter(meal => meal.id === "m1" || meal.id === "m2")
+
+    //state.meals select slice of state and then in this slice of state, this meals accesses meals property in initialState
+
+    const favMeals = useSelector(state => state.meals.favoriteMeals)
+    console.log(favMeals)
+
+    if (favMeals.length === 0 || !favMeals) {
+        return (
+            <View style={styles.content}>
+                <DefaultText>No favorite meals found. Start adding some!</DefaultText>
+            </View>
+        )
+    }
+
+
     return (
-        <View style={styles.screen}><Text>The Favorites Screen</Text>
-            <MealList listData={favMeals} navigation={props.navigation} />
-        </View>
+
+        <MealList listData={favMeals} navigation={props.navigation} />
+
     )
 }
 
@@ -30,9 +45,10 @@ FavoritesScreen.navigationOptions = (navigationData) => {
 
 
 const styles = StyleSheet.create({
-    screen: {
+    content: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'center'
+        ,
         alignItems: 'center'
     }
 })

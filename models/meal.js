@@ -5,7 +5,7 @@ class Meal {
         this.id = id;
         this.categoryIds = categoryIds;
         this.title = title;
-        this.imageURL = imageUrl;
+        this.imageUrl = imageUrl;
         this.ingredients = ingredients;
         this.steps = steps;
         this.duration = duration;
