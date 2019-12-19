@@ -13,6 +13,7 @@ const MealList = props => {
 
         return (
             <MealItem
+                key={itemData.item.id}
                 affordability={itemData.item.affordability} complexity={itemData.item.complexity} duration={itemData.item.duration} image={itemData.item.imageUrl} title={itemData.item.title} onSelectMeal={() => {
                     props.navigation.navigate({
                         routeName: "MealDetail",

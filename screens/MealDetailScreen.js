@@ -18,7 +18,6 @@ const ListItem = props => {
 const MealDetailScreen = props => {
     const availableMeals = useSelector(state => state.meals.meals);
     const mealId = props.navigation.getParam('mealId');
-
     const currentMealIsFavorite = useSelector(state =>
         state.meals.favoriteMeals.some(meal => meal.id === mealId)
     );
@@ -29,7 +28,6 @@ const MealDetailScreen = props => {
 
     const toggleFavoriteHandler = useCallback(() => {
         dispatch(toggleFavorite(mealId));
-        console.log('dispatching toggle fav for', mealId)
     }, [dispatch, mealId]);
 
     useEffect(() => {
@@ -40,7 +38,6 @@ const MealDetailScreen = props => {
     useEffect(() => {
         props.navigation.setParams({ isFav: currentMealIsFavorite });
     }, [currentMealIsFavorite]);
-    console.log('selected meal is', selectedMeal.title)
 
     return (
         <ScrollView>
