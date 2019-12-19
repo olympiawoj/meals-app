@@ -1,74 +1,86 @@
-import React, { useEffect, useCallback } from "react"
-import { HeaderButtons, Item } from "react-navigation-header-buttons"
-import HeaderButton from "../components/HeaderButton"
-import DefaultText from "../components/DefaultText"
-import { useSelector, useDispatch } from "react-redux"
-import { StyleSheet, ScrollView, Image, Text, View } from "react-native"
-import { toggleFavorite } from "../store/actions/meals"
+import React, { useEffect, useCallback } from 'react';
+import { ScrollView, View, Image, Text, StyleSheet } from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useSelector, useDispatch } from 'react-redux';
+
+import HeaderButton from '../components/HeaderButton';
+import DefaultText from '../components/DefaultText';
+import { toggleFavorite } from '../store/actions/meals';
 
 const ListItem = props => {
     return (
         <View style={styles.listItem}>
             <DefaultText>{props.children}</DefaultText>
         </View>
-    )
-}
+    );
+};
+
 const MealDetailScreen = props => {
+    const availableMeals = useSelector(state => state.meals.meals);
+    const mealId = props.navigation.getParam('mealId');
 
-    const availableMeals = useSelector(state => state.meals.meals)
+    const currentMealIsFavorite = useSelector(state =>
+        state.meals.favoriteMeals.some(meal => meal.id === mealId)
+    );
 
-    const mealId = props.navigation.getParam('mealId')
+    const selectedMeal = availableMeals.find(meal => meal.id === mealId);
 
-    const selectedMeal = availableMeals.find(meal => meal.id === mealId)
-
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const toggleFavoriteHandler = useCallback(() => {
-        dispatch(toggleFavorite(mealId))
-    }, [dispatch, mealId])
+        dispatch(toggleFavorite(mealId));
+        console.log('dispatching toggle fav for', mealId)
+    }, [dispatch, mealId]);
 
-    //merged with existing params, won't override mealId
     useEffect(() => {
-        // props.navigation.setParams({ mealTitle: selectedMeal.title })
-        props.navigation.setParams({ toggleFav: toggleFavoriteHandler })
-    }, [toggleFavoriteHandler])
+        // props.navigation.setParams({ mealTitle: selectedMeal.title });
+        props.navigation.setParams({ toggleFav: toggleFavoriteHandler });
+    }, [toggleFavoriteHandler]);
+
+    useEffect(() => {
+        props.navigation.setParams({ isFav: currentMealIsFavorite });
+    }, [currentMealIsFavorite]);
+    console.log('selected meal is', selectedMeal.title)
 
     return (
         <ScrollView>
-            <View style={styles.screen}>
-
-                <Image source={{ uri: selectedMeal.imageURL }} style={styles.image} />
-                <View style={styles.details}>
-                    <DefaultText>{selectedMeal.duration}m</DefaultText>
-                    <DefaultText>{selectedMeal.complexity.toUpperCase()}</DefaultText>
-                    <DefaultText>{selectedMeal.affordability.toUpperCase()}</DefaultText>
-                </View>
-                <Text style={styles.title}>Ingredients</Text>
-                {selectedMeal.ingredients.map(ingredient => <ListItem key={ingredient}>{ingredient}</ListItem>)}
-                <Text style={styles.title}>Steps</Text>
-                {selectedMeal.steps.map(step => <ListItem key={step}>{step}</ListItem>)}
+            <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
+            <View style={styles.details}>
+                <DefaultText>{selectedMeal.duration}m</DefaultText>
+                <DefaultText>{selectedMeal.complexity.toUpperCase()}</DefaultText>
+                <DefaultText>{selectedMeal.affordability.toUpperCase()}</DefaultText>
             </View>
+            <Text style={styles.title}>Ingredients</Text>
+            {selectedMeal.ingredients.map(ingredient => (
+                <ListItem key={ingredient}>{ingredient}</ListItem>
+            ))}
+            <Text style={styles.title}>Steps</Text>
+            {selectedMeal.steps.map(step => (
+                <ListItem key={step}>{step}</ListItem>
+            ))}
         </ScrollView>
-    )
-}
+    );
+};
 
-MealDetailScreen.navigationOptions = (navigationData) => {
-
-    // console.log('meal id', mealId)
-    const mealTitle = navigationData.navigation.getParam('mealTitle')
-    // const selectedMeal = MEALS.find(meal => meal.id === mealId)
-    // console.log(selectedMeal)
-
-    const toggleFavorite = navigationData.navigation.getParam('toggleFav')
+MealDetailScreen.navigationOptions = navigationData => {
+    // const mealId = navigationData.navigation.getParam('mealId');
+    const mealTitle = navigationData.navigation.getParam('mealTitle');
+    const toggleFavorite = navigationData.navigation.getParam('toggleFav');
+    const isFavorite = navigationData.navigation.getParam('isFav');
+    // const selectedMeal = MEALS.find(meal => meal.id === mealId);
     return {
         headerTitle: mealTitle,
-        headerRight:
+        headerRight: (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item title="Favorite" iconName="ios-star" onPress={toggleFavorite} />
-                {/* <Item title="Favorite" iconName="ios-star-outline" onPress={() => console.log('Mark as favorite')} /> */}
+                <Item
+                    title="Favorite"
+                    iconName={isFavorite ? 'ios-star' : 'ios-star-outline'}
+                    onPress={toggleFavorite}
+                />
             </HeaderButtons>
-    }
-}
+        )
+    };
+};
 
 const styles = StyleSheet.create({
     image: {
@@ -81,9 +93,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     title: {
-        fontFamily: "open-sans-bold",
+        fontFamily: 'open-sans-bold',
         fontSize: 22,
-        textAlign: "center"
+        textAlign: 'center'
     },
     listItem: {
         marginVertical: 10,
@@ -92,6 +104,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10
     }
-})
+});
 
-export default MealDetailScreen
+export default MealDetailScreen;

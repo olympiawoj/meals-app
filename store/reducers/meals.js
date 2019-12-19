@@ -27,3 +27,4 @@ const mealsReducer = (state = initialState, action) => {
 }
 
 export default mealsReducer;
+

@@ -18,7 +18,7 @@ const CategoryMealsScreen = props => {
 }
 
 CategoryMealsScreen.navigationOptions = (navigationData) => {
-    console.log(navigationData)
+    // console.log(navigationData)
     const catId = navigationData.navigation.getParam('categoryId')
     console.log(catId)
     const selectedCategory = CATEGORIES.find(cat => cat.id === catId)
