@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from "react
 import DefaultText from "./DefaultText"
 
 const MealItem = props => {
-    console.log('the title of this is', props.title)
+    // console.log('the title of this is', props.title)
     return (
         <View style={styles.mealItem}>
             <TouchableOpacity onPress={props.onSelectMeal} >

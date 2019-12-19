@@ -25,7 +25,7 @@ const mealsReducer = (state = initialState, action) => {
 
         case SET_FILTERS:
             //extract filters setup by user
-            const appliedFilters = actions.filters
+            const appliedFilters = action.filters
             const updatedFilterMeals = state.meals.filter(meal => {
                 if (appliedFilters.glutenFree && !meal.isGlutenFree) {
                     return false
