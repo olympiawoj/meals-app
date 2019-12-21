@@ -1,4 +1,4 @@
-# The Shop App
+# The Meal App
 
 🍽A Recipe Meal App built with React Native
 
@@ -23,7 +23,7 @@
 - [react-navigation](https://reactnavigation.org/)
 - [redux](https://redux.js.org/)
 - [react-redux](https://react-redux.js.org/)
-- [react-native-gesture-handler](https://software-mansion.github.io/react-native-gesture-handler/docs/getting-started.html)
+- [react-native-gesture-handler]()
 
 
 ## Author
